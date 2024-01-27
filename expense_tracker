@@ -1,0 +1,54 @@
+expense_data = dict()
+
+def input_expense():
+    category = input("Enter the expense category: ")
+    amount = float(input("Enter the expense amount (in $): "))
+    
+    if category not in expense_data:
+        desc= input("A brief description: ")
+        expense_data[category]=[amount, desc]
+    else:
+        expense_data[category][0]+=amount 
+
+def display_summary():
+    total_expenses = sum(expense_data[ele][0] for ele in expense_data)
+    print("\nExpense Summary:\n")
+    print(f"Total Daily Expenses: ${total_expenses:.2f}")
+    print(f"Monthly Expenses: ${(total_expenses*30):.2f}")
+    print("Note: Monthly expenses above is calculated assuming that the total money spent each day is same and uniform throughout the month. It may vary from day to day.")
+
+    # Display category-wise expenditure
+    
+    print("\nCategory-wise Expenditure:")
+    for category in expense_data:
+        print(f"{category}: {expense_data[category][0]:.2f}")
+
+def display_descr():
+    print("\nCategory-wise Description:")
+    for category in expense_data:
+        print(f"{category}: ${expense_data[category][1]}")
+
+def run_tracker():
+    while True:
+        print("\nExpense Tracker Menu:")
+        print("1. Add Expense")
+        print("2. Display Summary")
+        print("3. Display Description")
+        print("4. Exit")
+
+        choice = input("Enter your choice (1-4): ")
+
+        if choice == "1":
+            input_expense()
+        elif choice == "2":
+            display_summary()
+        elif choice == "3":
+            display_descr()
+        elif choice == "4":
+            print("Exiting Expense Tracker. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please enter a valid option.")
+
+if __name__ == "__main__":
+    run_tracker()
